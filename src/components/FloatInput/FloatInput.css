@@ -1,0 +1,27 @@
+.float-input-overlay-mask {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 999;
+  width: 100vw;
+  height: 100vh;
+}
+
+.float-input {
+  position: fixed;
+  z-index: 1000;
+  padding: 0;
+  margin: 0;
+  border: none;
+  min-width: 100px;
+  font-family: "Arial";
+  padding-inline: 0;
+  padding-block: 0;
+  background-color: transparent;
+  border-spacing: 0;
+  box-sizing: border-box;
+}
+
+.float-input:focus {
+  outline: none;
+}

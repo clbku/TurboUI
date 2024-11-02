@@ -47,13 +47,16 @@ export const AppLayout: React.FC<AppLayoutProps> = (props) =>
                     vertical
                 >
                     {logo && (
-                        <Flex className="app-brand">
-                            <img
-                                src={logo}
-                                style={{ width: 'auto', height: '100%', maxHeight: collapsed ? 48 : 64 }}
-                                onClick={() => navigateTo(defaultRoute || '')}
-                            />
-                        </Flex>
+                        <>
+                            <Flex className="app-brand">
+                                <img
+                                    src={logo}
+                                    style={{ width: 'auto', height: '100%', maxHeight: collapsed ? 48 : 64 }}
+                                    onClick={() => navigateTo(defaultRoute || '')}
+                                />
+                            </Flex>
+                            <Divider />
+                        </>
                     )}
                     <Flex className='app-feature'>
                         <Menu

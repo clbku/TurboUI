@@ -1,5 +1,6 @@
 .sidebar {
   transition: all 0.125s;
+  border-right: 1px solid #f0f0f0;
 }
 
 .app-brand {
@@ -16,6 +17,7 @@
   scrollbar-width: thin;
   scrollbar-color: unset;
   hight: fit-content;
+  user-select: none;
 }
 
 .app-feature .ant-menu {
@@ -31,6 +33,7 @@
 .app-sub-feature {
   margin-top: 0.5rem;
   width: 100%;
+  user-select: none;
 }
 
 .app-sub-feature .ant-menu {
@@ -50,4 +53,9 @@
 .app-collapse-button button {
   width: 100%;
   transition: all 0.125s;
+}
+
+.app-content {
+  padding: 0 24px 24px;
+  height: 100vh;
 }

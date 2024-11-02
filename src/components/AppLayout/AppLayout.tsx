@@ -12,20 +12,23 @@ type AppLayoutProps = {
     logo?: any
     routes: AppLayoutRoute[]
     defaultRoute?: string
+    collapsed?: boolean
 }
 
 export const AppLayout: React.FC<AppLayoutProps> = (props) =>
 {
     const { logo, routes, defaultRoute } = props;
 
-    const [collapsed, setCollapsed] = useState(true);
+    const [collapsed, setCollapsed] = useState(props.collapsed || false);
     const [selectedKeys, setSelectedKeys] = useState<string[]>(defaultRoute ? [defaultRoute] : []);
 
     const navigate = useNavigate();
 
-    useEffect(() => {
-        defaultRoute && navigate(defaultRoute, {replace: true});
-    }, [])
+    const navigateTo = (path: string) =>
+    {
+        setSelectedKeys([path]);
+        navigate(path);
+    };
 
     return (
         <>
@@ -43,13 +46,14 @@ export const AppLayout: React.FC<AppLayoutProps> = (props) =>
                             <img
                                 src={logo}
                                 style={{ width: 'auto', height: '100%', maxHeight: collapsed ? 48 : 64 }}
+                                onClick={() => navigateTo(defaultRoute || '')}
                             />
                         </Flex>
                     )}
                     <Flex className='app-feature'>
                         <Menu
                             mode={'inline'}
-                            selectedKeys={[defaultRoute || '']}
+                            selectedKeys={selectedKeys}
                             items={routes?.map((route) =>
                                 ({
                                     key: route.path,
@@ -61,7 +65,7 @@ export const AppLayout: React.FC<AppLayoutProps> = (props) =>
                                             size="1rem"
                                         />
                                     ),
-                                    onClick: () => navigate(route.path),
+                                    onClick: () => navigateTo(route.path),
                                 }),
                             )}
                         />
@@ -71,11 +75,14 @@ export const AppLayout: React.FC<AppLayoutProps> = (props) =>
                     >
                         <Menu
                             mode="inline"
-                            selectedKeys={[""]}
+                            selectedKeys={['']}
                             items={[{
                                 key: 'setting',
-                                label: "Setting",
-                                icon: <FAIcon icon='cog' size={"1rem"}/>,
+                                label: 'Setting',
+                                icon: <FAIcon
+                                    icon='cog'
+                                    size={'1rem'}
+                                />,
                             }]}
                         />
                     </Flex>
@@ -89,7 +96,15 @@ export const AppLayout: React.FC<AppLayoutProps> = (props) =>
                         </Button>
                     </Flex>
                 </Flex>
-                <Layout style={{ padding: '0 24px 24px' }}>
+                <Divider
+                    style={{ margin: '0 2px', height: '100vh' }}
+                    type='vertical'
+                />
+                <Layout
+                    className="app-content"
+                >
+                    asdasd
+                    <br />
                     <Outlet />
                 </Layout>
             </Layout>

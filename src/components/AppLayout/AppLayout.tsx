@@ -30,6 +30,11 @@ export const AppLayout: React.FC<AppLayoutProps> = (props) =>
         navigate(path);
     };
 
+    useEffect(() =>
+    {
+        navigate(defaultRoute || '');
+    }, []);
+
     return (
         <>
             <Layout
@@ -103,7 +108,6 @@ export const AppLayout: React.FC<AppLayoutProps> = (props) =>
                 <Layout
                     className="app-content"
                 >
-                    asdasd
                     <br />
                     <Outlet />
                 </Layout>

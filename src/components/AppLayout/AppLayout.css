@@ -15,11 +15,31 @@
   overflow-x: hidden;
   scrollbar-width: thin;
   scrollbar-color: unset;
+  hight: fit-content;
+}
+
+.app-feature .ant-menu {
+  width: 100%;
+  height: fit-content;
+  min-height: 100%;
+}
+
+.app-feature .ant-menu .ant-menu-item {
+  justify-content: center;
 }
 
 .app-sub-feature {
   margin-top: 0.5rem;
   width: 100%;
+}
+
+.app-sub-feature .ant-menu {
+  width: 100%;
+  height: fit-content;
+}
+
+.app-sub-feature .ant-menu .ant-menu-item {
+  justify-content: center;
 }
 
 .app-collapse-button {

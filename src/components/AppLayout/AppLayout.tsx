@@ -1,12 +1,12 @@
-import { createBrowserRouter, Outlet, useNavigate } from 'react-router-dom';
-import { Button, Divider, Flex, Layout, Menu, MenuProps, MenuRef } from 'antd';
+import { Outlet, useNavigate } from 'react-router-dom';
+import { Button, Divider, Flex, Layout, Menu } from 'antd';
 
 import { FAIcon } from '@repo/vicon';
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import './AppLayout.css';
 import { AppLayoutRoute } from './types';
-import { Link } from 'react-router-dom';
+import { SubFeatures } from './SubFeatures';
 
 type AppLayoutProps = {
     logo?: any
@@ -81,18 +81,7 @@ export const AppLayout: React.FC<AppLayoutProps> = (props) =>
                     <Flex
                         className='app-sub-feature'
                     >
-                        <Menu
-                            mode="inline"
-                            selectedKeys={['']}
-                            items={[{
-                                key: 'setting',
-                                label: 'Setting',
-                                icon: <FAIcon
-                                    icon='cog'
-                                    size={'1rem'}
-                                />,
-                            }]}
-                        />
+                        <SubFeatures />
                     </Flex>
                     <Divider style={{ margin: '2px' }} />
                     <Flex className='app-collapse-button'>

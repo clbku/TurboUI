@@ -5,8 +5,11 @@ export { AdvanceColorPicker } from './components/AdvanceColorPicker/AdvanceColor
 export { FloatInput } from './components/FloatInput/FloatInput';
 
 export { NotFoundPage } from './pages/404';
+export { SignInPage } from './pages/authorization/signin';
 
 export { KeyboardEventProvider, useKeyboardEvent } from './components/KeyboardEvent/KeyboardEventContext';
 export { KeyCode } from './components/KeyboardEvent/keys';
 
 export { useMergeState } from './hooks/useMergeState';
+
+export { UserIdentityProvider, useUserIdentity } from './contexts/UserIdentity';

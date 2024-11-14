@@ -1,5 +1,7 @@
 import { FAIcon } from '@repo/vicon';
+import { useNavigate } from 'react-router-dom';
 import { Menu } from 'antd';
+
 import { UserIdentityContext } from '../../contexts/UserIdentity';
 
 type SubFeaturesProps = {
@@ -8,6 +10,8 @@ type SubFeaturesProps = {
 
 export const SubFeatures: React.FC<SubFeaturesProps> = (props) =>
 {
+    const navigate = useNavigate();
+
     return (
         <Menu
             mode="inline"
@@ -40,7 +44,10 @@ export const SubFeatures: React.FC<SubFeaturesProps> = (props) =>
                             size={'1rem'}
                         />
                     ),
-                    onClick: () => {},
+                    onClick: () =>
+                    {
+                        navigate('/user/profile');
+                    },
                 },
             ]}
         />

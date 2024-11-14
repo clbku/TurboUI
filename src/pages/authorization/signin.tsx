@@ -1,16 +1,18 @@
 import React from 'react';
-import { Button, Input, Typography, Form, App } from 'antd';
+import { Button, Input, Typography, Form, App, Flex } from 'antd';
 
 import axios, { AxiosResponse } from 'axios';
+import { Link } from 'react-router-dom';
 
 type SignInPageProps = {
     authUrl?: string
+    homeUrl?: string
     onSuccess?: (response: AxiosResponse) => void
 }
 
 export const SignInPage: React.FC<SignInPageProps> = (props) =>
 {
-    const { authUrl = '/api/auth', onSuccess } = props;
+    const { authUrl = '/api/auth', homeUrl, onSuccess } = props;
 
     const [username, setUsername] = React.useState('');
     const [password, setPassword] = React.useState('');
@@ -36,13 +38,21 @@ export const SignInPage: React.FC<SignInPageProps> = (props) =>
     };
 
     return (
-        <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '100vh' }}>
-            <div style={{ width: '300px' }}>
+        <Flex
+            justify='center'
+            align='center'
+            style={{ minHeight: '100vh' }}
+            vertical
+        >
+            <Flex
+                style={{ width: '300px', marginBottom: '6rem' }}
+                vertical
+            >
                 <Typography.Title
                     level={2}
                     style={{ textAlign: 'center' }}
                 >
-          Sign In
+                    Sign In
                 </Typography.Title>
                 <Form layout="vertical">
                     <Form.Item label="Username">
@@ -68,9 +78,7 @@ export const SignInPage: React.FC<SignInPageProps> = (props) =>
                         </Button>
                     </Form.Item>
                 </Form>
-                <Typography.Text style={{ display: 'block', textAlign: 'center', margin: '16px 0' }}>
-          or
-                </Typography.Text>
+                <Typography.Text style={{ display: 'block', textAlign: 'center', margin: '16px 0' }}>or</Typography.Text>
                 <Button
                     type="default"
                     block
@@ -78,7 +86,8 @@ export const SignInPage: React.FC<SignInPageProps> = (props) =>
                 >
                         Login with Google
                 </Button>
-            </div>
-        </div>
+            </Flex>
+            {homeUrl && <Link to={homeUrl}>Back to home</Link>}
+        </Flex>
     );
 };

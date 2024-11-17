@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Input, Typography, Form, App, Flex } from 'antd';
+import { Button, Input, Typography, Form, App, Flex, Layout } from 'antd';
 
 import axios, { AxiosResponse } from 'axios';
 import { Link } from 'react-router-dom';
@@ -38,56 +38,58 @@ export const SignInPage: React.FC<SignInPageProps> = (props) =>
     };
 
     return (
-        <Flex
-            justify='center'
-            align='center'
-            style={{ minHeight: '100vh' }}
-            vertical
-        >
+        <Layout>
             <Flex
-                style={{ width: '300px', marginBottom: '6rem' }}
+                justify='center'
+                align='center'
+                style={{ minHeight: '100vh' }}
                 vertical
             >
-                <Typography.Title
-                    level={2}
-                    style={{ textAlign: 'center' }}
+                <Flex
+                    style={{ width: '300px', marginBottom: '6rem' }}
+                    vertical
                 >
+                    <Typography.Title
+                        level={2}
+                        style={{ textAlign: 'center' }}
+                    >
                     Sign In
-                </Typography.Title>
-                <Form layout="vertical">
-                    <Form.Item label="Username">
-                        <Input
-                            value={username}
-                            onChange={(e) => setUsername(e.target.value)}
-                        />
-                    </Form.Item>
-                    <Form.Item label="Password">
-                        <Input.Password
-                            type='password'
-                            value={password}
-                            onChange={e => setPassword(e.target.value)}
-                        />
-                    </Form.Item>
-                    <Form.Item>
-                        <Button
-                            type="primary"
-                            block
-                            onClick={handleBasicLogin}
-                        >
+                    </Typography.Title>
+                    <Form layout="vertical">
+                        <Form.Item label="Username">
+                            <Input
+                                value={username}
+                                onChange={(e) => setUsername(e.target.value)}
+                            />
+                        </Form.Item>
+                        <Form.Item label="Password">
+                            <Input.Password
+                                type='password'
+                                value={password}
+                                onChange={e => setPassword(e.target.value)}
+                            />
+                        </Form.Item>
+                        <Form.Item>
+                            <Button
+                                type="primary"
+                                block
+                                onClick={handleBasicLogin}
+                            >
                             Sign In
-                        </Button>
-                    </Form.Item>
-                </Form>
-                <Typography.Text style={{ display: 'block', textAlign: 'center', margin: '16px 0' }}>or</Typography.Text>
-                <Button
-                    type="default"
-                    block
-                    onClick={handleGoogleSignIn}
-                >
+                            </Button>
+                        </Form.Item>
+                    </Form>
+                    <Typography.Text style={{ display: 'block', textAlign: 'center', margin: '16px 0' }}>or</Typography.Text>
+                    <Button
+                        type="default"
+                        block
+                        onClick={handleGoogleSignIn}
+                    >
                         Login with Google
-                </Button>
+                    </Button>
+                </Flex>
+                {homeUrl && <Link to={homeUrl}>Back to home</Link>}
             </Flex>
-            {homeUrl && <Link to={homeUrl}>Back to home</Link>}
-        </Flex>
+        </Layout>
     );
 };

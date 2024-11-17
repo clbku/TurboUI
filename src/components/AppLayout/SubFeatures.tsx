@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { Menu } from 'antd';
 
 import { UserIdentityContext } from '../../contexts/UserIdentity';
+import { useTheme } from '../../contexts/Theme/Theme';
 
 type SubFeaturesProps = {
 
@@ -11,21 +12,33 @@ type SubFeaturesProps = {
 export const SubFeatures: React.FC<SubFeaturesProps> = (props) =>
 {
     const navigate = useNavigate();
+    const { theme, toggleTheme } = useTheme();
 
     return (
         <Menu
             mode="inline"
             selectedKeys={['']}
             items={[
+                // {
+                //     key: 'setting',
+                //     label: 'setting',
+                //     icon: (
+                //         <FAIcon
+                //             icon='cog'
+                //             size={'1rem'}
+                //         />
+                //     ),
+                // },
                 {
-                    key: 'setting',
-                    label: 'setting',
+                    key: 'theme',
+                    label: 'Theme',
                     icon: (
                         <FAIcon
-                            icon='cog'
+                            icon={theme === 'dark' ? 'moon' : 'sun'}
                             size={'1rem'}
                         />
                     ),
+                    onClick: toggleTheme,
                 },
                 {
                     key: 'user',

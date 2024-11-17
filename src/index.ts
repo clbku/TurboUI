@@ -14,3 +14,4 @@ export { KeyCode } from './components/KeyboardEvent/keys';
 export { useMergeState } from './hooks/useMergeState';
 
 export { UserIdentityProvider, useUserIdentity } from './contexts/UserIdentity';
+export { ThemeProvider } from './contexts/Theme/Theme';

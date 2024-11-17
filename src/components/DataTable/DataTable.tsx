@@ -1,5 +1,6 @@
 import { FAIcon } from '@repo/vicon';
 import { Button, Flex, Input, Table } from 'antd';
+import { ColumnsType, TableProps } from 'antd/es/table';
 import { useEffect, useRef, useState } from 'react';
 import { ButtonType } from './type';
 import { TableRowSelection } from 'antd/es/table/interface';
@@ -9,7 +10,7 @@ type DataTableProps<T> = {
   rowSelection?: TableRowSelection<T>;
   buttons?: ButtonType[];
   onfilter?: (keyword: string) => void;
-} & { [key: string]: any };
+} & TableProps<T>;
 
 export function DataTable<T>(props: DataTableProps<T>): JSX.Element
 {
@@ -17,12 +18,28 @@ export function DataTable<T>(props: DataTableProps<T>): JSX.Element
     const { onfilter } = props;
 
     const [searchWord, setSearchWord] = useState<string>('');
+    const tableRef = useRef<any>(null);
 
+    const [tableHeight, setTableHeight] = useState(window.innerHeight);
 
     useEffect(() =>
     {
         onfilter && onfilter(searchWord);
     }, [searchWord]);
+
+    useEffect(() =>
+    {
+        const handleResize = () =>
+        {
+            setTableHeight(window.innerHeight - 155);
+        };
+
+        window.addEventListener('resize', handleResize);
+        return () =>
+        {
+            window.removeEventListener('resize', handleResize);
+        };
+    }, []);
 
     return (
         <div
@@ -76,6 +93,7 @@ export function DataTable<T>(props: DataTableProps<T>): JSX.Element
                 dataSource={dataSource}
                 rowSelection={{ type: 'checkbox', ...rowSelection }}
                 {...tableProps}
+                scroll={{ y: tableHeight }}
                 style={{ flex: 1 }}
             />
         </div>

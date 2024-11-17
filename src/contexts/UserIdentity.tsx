@@ -4,6 +4,7 @@ import { UserProfile } from '../types/user';
 
 type UserIdentityContextProps = {
     userProfile: UserProfile
+    fetchUserProfile: () => Promise<void>
 }
 
 export const UserIdentityContext = createContext<UserIdentityContextProps>({} as UserIdentityContextProps);
@@ -40,7 +41,7 @@ export const UserIdentityProvider: React.FC<React.PropsWithChildren<{storage: 'l
     }, []);
 
     return (
-        <UserIdentityContext.Provider value={{ userProfile }}>
+        <UserIdentityContext.Provider value={{ userProfile, fetchUserProfile }}>
             {props.children}
         </UserIdentityContext.Provider>
     );

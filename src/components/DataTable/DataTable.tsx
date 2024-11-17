@@ -93,7 +93,7 @@ export function DataTable<T>(props: DataTableProps<T>): JSX.Element
                 dataSource={dataSource}
                 rowSelection={{ type: 'checkbox', ...rowSelection }}
                 {...tableProps}
-                scroll={{ y: tableHeight }}
+                // scroll={{ y: tableHeight }}
                 style={{ flex: 1 }}
             />
         </div>

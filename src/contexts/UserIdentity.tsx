@@ -19,8 +19,16 @@ export const UserIdentityProvider: React.FC<React.PropsWithChildren<{storage: 'l
 
     const fetchUserProfile = async () =>
     {
-        const response = await axios.get('/api/users/profile');
-        setUserProfile(response.data.data);
+        try
+        {
+            const response = await axios.get('/api/users/profile');
+            setUserProfile(response.data.data);
+        }
+        catch (error: any)
+        {
+            console.log(error.message);
+        }
+
         setLoading(false);
     };
 

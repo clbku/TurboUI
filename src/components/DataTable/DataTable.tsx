@@ -5,6 +5,9 @@ import { useEffect, useRef, useState } from 'react';
 import { ButtonType } from './type';
 import { TableRowSelection } from 'antd/es/table/interface';
 
+import './DataTable.css';
+import { useDataTable } from '../../hooks/useDataTable';
+
 type DataTableProps<T> = {
   dataSource: T[];
   rowSelection?: TableRowSelection<T>;
@@ -12,42 +15,25 @@ type DataTableProps<T> = {
   onfilter?: (keyword: string) => void;
 } & TableProps<T>;
 
+
 export function DataTable<T>(props: DataTableProps<T>): JSX.Element
 {
     const { dataSource, buttons, rowSelection, ...tableProps } = props;
     const { onfilter } = props;
 
     const [searchWord, setSearchWord] = useState<string>('');
-    const tableRef = useRef<any>(null);
 
-    const [tableHeight, setTableHeight] = useState(window.innerHeight);
+    const { tableRef, tableHeight, tableWidth } = useDataTable(tableProps.columns ?? []);
 
     useEffect(() =>
     {
         onfilter && onfilter(searchWord);
     }, [searchWord]);
 
-    useEffect(() =>
-    {
-        const handleResize = () =>
-        {
-            setTableHeight(window.innerHeight - 155);
-        };
-
-        window.addEventListener('resize', handleResize);
-        return () =>
-        {
-            window.removeEventListener('resize', handleResize);
-        };
-    }, []);
-
     return (
-        <div
-            style={{
-                display: 'flex',
-                flexDirection: 'column',
-                flex: 1,
-            }}
+        <Flex
+            style={{ width: '100%', height: '100%' }}
+            vertical
         >
             <Flex
                 justify="space-between"
@@ -90,12 +76,15 @@ export function DataTable<T>(props: DataTableProps<T>): JSX.Element
                 )}
             </Flex>
             <Table<T>
-                dataSource={dataSource}
-                rowSelection={{ type: 'checkbox', ...rowSelection }}
-                {...tableProps}
-                // scroll={{ y: tableHeight }}
+                ref={tableRef}
+                className="ant-custom-table"
                 style={{ flex: 1 }}
+                dataSource={dataSource}
+                // rowSelection={{ type: 'checkbox', ...rowSelection }}
+                {...tableProps}
+                scroll={{ y: tableHeight, x: tableWidth }}
+                virtual
             />
-        </div>
+        </Flex>
     );
 }

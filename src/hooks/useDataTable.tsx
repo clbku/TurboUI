@@ -79,8 +79,6 @@ export function useDataTable<T>(columns: ColumnsType<T>): HookReturns
         }, 0));
     }, [columns]);
 
-    console.log(tableHeight);
-
     return {
         tableRef,
         tableHeight, tableWidth,

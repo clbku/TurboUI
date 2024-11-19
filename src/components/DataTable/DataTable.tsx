@@ -80,10 +80,9 @@ export function DataTable<T>(props: DataTableProps<T>): JSX.Element
                 className="ant-custom-table"
                 style={{ flex: 1 }}
                 dataSource={dataSource}
-                // rowSelection={{ type: 'checkbox', ...rowSelection }}
+                rowSelection={{ type: 'checkbox', ...rowSelection }}
                 {...tableProps}
                 scroll={{ y: tableHeight, x: tableWidth }}
-                virtual
             />
         </Flex>
     );

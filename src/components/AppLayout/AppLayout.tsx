@@ -13,11 +13,12 @@ type AppLayoutProps = {
   routes: AppLayoutRoute[];
   defaultRoute?: string;
   collapsed?: boolean;
+  subFeaterRoute?: any[]
 };
 
 export const AppLayout: React.FC<AppLayoutProps> = (props) =>
 {
-    const { logo, routes, defaultRoute } = props;
+    const { logo, routes, defaultRoute, subFeaterRoute } = props;
 
     const [collapsed, setCollapsed] = useState(props.collapsed || false);
     const [selectedKeys, setSelectedKeys] = useState<string[]>(
@@ -31,11 +32,6 @@ export const AppLayout: React.FC<AppLayoutProps> = (props) =>
         setSelectedKeys([path]);
         navigate(path);
     };
-
-    // useEffect(() =>
-    // {
-    //     navigate(defaultRoute || '');
-    // }, []);
 
     return (
         <>
@@ -82,7 +78,7 @@ export const AppLayout: React.FC<AppLayoutProps> = (props) =>
                         />
                     </Flex>
                     <Flex className="app-sub-feature">
-                        <SubFeatures />
+                        <SubFeatures routes={subFeaterRoute} />
                     </Flex>
                     <Divider style={{ margin: '2px' }} />
                     <Flex className="app-collapse-button">

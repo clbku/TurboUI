@@ -13,7 +13,9 @@
   "dependencies": {
     "@ant-design/colors": "^7.1.0",
     "@repo/vicon": "workspace:*",
-    "antd": "^5.21.1"
+    "@paypal/react-paypal-js": "^8.7.0",
+    "antd": "^5.21.1",
+    "antd-mask-input": "^2.0.7"
   },
   "peerDependencies": {
     "@types/react": "^18.3.3",

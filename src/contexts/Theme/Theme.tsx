@@ -1,5 +1,6 @@
-import { ConfigProvider, theme as AntTheme } from 'antd';
+import { ConfigProvider } from 'antd';
 import { createContext, PropsWithChildren, useContext, useState } from 'react';
+import { transparentDark } from './themes/transparent-dark';
 
 type ThemeContextType = {
     theme: string
@@ -20,9 +21,7 @@ export const ThemeProvider: React.FC<PropsWithChildren<{}>> = (props) =>
     return (
         <ThemeContext.Provider value={{ theme, toggleTheme }}>
             <ConfigProvider
-                theme={{
-                    algorithm: theme === 'dark' ? AntTheme.darkAlgorithm : undefined,
-                }}
+                theme={transparentDark}
             >
                 {props.children}
             </ConfigProvider>

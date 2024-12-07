@@ -8,6 +8,7 @@ export { PrivateRoute } from './components/PrivateRoute/PrivateRoute';
 export { KeyboardEventProvider, useKeyboardEvent } from './components/KeyboardEvent/KeyboardEventContext';
 export { KeyCode } from './components/KeyboardEvent/keys';
 export { Payment } from './components/Payment/Payment';
+export { MacTitleBar } from './components/TitleBar/MacTitleBar';
 
 export { NotFoundPage } from './pages/404';
 export { SignInPage } from './pages/authorization/signin';

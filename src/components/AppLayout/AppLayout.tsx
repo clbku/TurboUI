@@ -2,7 +2,7 @@ import { Outlet, useNavigate } from 'react-router-dom';
 import { Button, Divider, Flex, Layout, Menu } from 'antd';
 
 import { FAIcon } from '@repo/vicon';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
 import './AppLayout.css';
 import { AppLayoutRoute } from './types';
@@ -36,7 +36,7 @@ export const AppLayout: React.FC<AppLayoutProps> = (props) =>
     return (
         <>
             <Layout
-                style={{ width: '100vw', height: '100vh' }}
+                style={{ width: '100vw', height: '100%' }}
                 hasSider
             >
                 <Flex
@@ -82,7 +82,11 @@ export const AppLayout: React.FC<AppLayoutProps> = (props) =>
                     </Flex>
                     <Divider style={{ margin: '2px' }} />
                     <Flex className="app-collapse-button">
-                        <Button onClick={() => setCollapsed(!collapsed)}>
+                        <Button
+                            variant='text'
+                            color='default'
+                            onClick={() => setCollapsed(!collapsed)}
+                        >
                             <FAIcon
                                 icon={
                                     collapsed ? 'chevron-double-right' : 'chevron-double-left'
@@ -93,7 +97,7 @@ export const AppLayout: React.FC<AppLayoutProps> = (props) =>
                     </Flex>
                 </Flex>
                 <Divider
-                    style={{ margin: '0 2px', height: '100vh' }}
+                    style={{ margin: '0 2px', height: '100%' }}
                     type="vertical"
                 />
                 <Layout className="app-content">

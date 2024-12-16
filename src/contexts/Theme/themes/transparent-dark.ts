@@ -62,5 +62,10 @@ export const transparentDark = {
         Typography: {
             colorText: baseColor,
         },
+
+        Form: {
+            labelFontSize: '13px',
+            fontSize: '10px',
+        },
     },
 };

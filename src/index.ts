@@ -1,4 +1,6 @@
 export * from 'antd';
+export { default as AwesomeDebouncePromise } from 'awesome-debounce-promise';
+
 
 export { AppLayout } from './components/AppLayout/AppLayout';
 export { AdvanceColorPicker } from './components/AdvanceColorPicker/AdvanceColorPicker';

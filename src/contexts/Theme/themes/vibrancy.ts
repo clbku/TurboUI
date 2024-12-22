@@ -2,7 +2,7 @@ import { theme } from 'antd';
 
 const baseColor = 'rgba(255, 255, 255, 0.65)';
 
-export const transparentDark = {
+export const vibrancy = {
     algorithm: theme.darkAlgorithm as any,
     token: {
         // Seed Token

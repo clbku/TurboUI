@@ -4,7 +4,6 @@ import { Menu } from 'antd';
 
 import { UserIdentityContext } from '../../contexts/UserIdentity';
 import { useTheme } from '../../contexts/Theme/Theme';
-import { ItemType, MenuItemType } from 'antd/es/menu/interface';
 
 type SubFeaturesProps = {
     routes?: any[]
@@ -22,7 +21,7 @@ export const SubFeatures: React.FC<SubFeaturesProps> = (props) =>
             label: 'Theme',
             icon: (
                 <FAIcon
-                    icon={theme === 'dark' ? 'moon' : 'sun'}
+                    icon={theme === 'dark' ? 'moon' : (theme === 'light' ? 'sun' : 'adjust')}
                     size={'1rem'}
                 />
             ),

@@ -54,6 +54,7 @@ export const SubFeatures: React.FC<SubFeaturesProps> = (props) =>
     return (
         <Menu
             mode="inline"
+            style={{ border: 'none' }}
             selectedKeys={['']}
             items={[...(routes || []), ...defaultRoute]}
         />

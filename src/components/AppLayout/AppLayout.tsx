@@ -1,5 +1,7 @@
 import { Outlet, useNavigate } from 'react-router-dom';
 import { Button, Divider, Flex, Layout, Menu } from 'antd';
+import { theme as antdTheme } from 'antd';
+
 
 import { FAIcon } from '@repo/vicon';
 import { useState } from 'react';
@@ -19,6 +21,9 @@ type AppLayoutProps = {
 export const AppLayout: React.FC<AppLayoutProps> = (props) =>
 {
     const { logo, routes, defaultRoute, subFeaterRoute } = props;
+
+    const { useToken } = antdTheme;
+    const { token: theme } = useToken();
 
     const [collapsed, setCollapsed] = useState(props.collapsed || false);
     const [selectedKeys, setSelectedKeys] = useState<string[]>(
@@ -40,7 +45,7 @@ export const AppLayout: React.FC<AppLayoutProps> = (props) =>
                 hasSider
             >
                 <Flex
-                    style={{ width: collapsed ? 64 : 256, justifyContent: 'flex-end' }}
+                    style={{ width: collapsed ? 64 : 256, justifyContent: 'flex-end', backgroundColor: theme?.colorBgContainer }}
                     className="sidebar"
                     vertical
                 >
@@ -64,6 +69,7 @@ export const AppLayout: React.FC<AppLayoutProps> = (props) =>
                         <Menu
                             mode={'inline'}
                             selectedKeys={selectedKeys}
+                            style={{ border: 'none' }}
                             items={routes?.map((route) => ({
                                 key: route.path,
                                 label: route.label,
@@ -97,10 +103,13 @@ export const AppLayout: React.FC<AppLayoutProps> = (props) =>
                     </Flex>
                 </Flex>
                 <Divider
-                    style={{ margin: '0 2px', height: '100%' }}
+                    style={{ margin: 0, height: '100%' }}
                     type="vertical"
                 />
-                <Layout className="app-content">
+                <Layout
+                    className="app-content"
+                    style={{ backgroundColor: theme?.colorBgContainer }}
+                >
                     <Outlet />
                 </Layout>
             </Layout>

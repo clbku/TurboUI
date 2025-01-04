@@ -13,7 +13,7 @@ type ThemeContextType = {
 enum Theme {
     dark = 'dark',
     light = 'light',
-    vibrancy = 'vibrancy'
+    // vibrancy = 'vibrancy'
 }
 
 const ThemeContext = createContext<ThemeContextType>({} as ThemeContextType);
@@ -25,15 +25,16 @@ export const ThemeProvider: React.FC<PropsWithChildren<{}>> = (props) =>
     const toggleTheme = () =>
     {
         if (theme === Theme.dark) {setTheme(Theme.light);}
-        if (theme === Theme.light) {setTheme(Theme.vibrancy);}
-        if (theme === Theme.vibrancy) {setTheme(Theme.dark);}
+        if (theme === Theme.light) {setTheme(Theme.dark);}
+        // if (theme === Theme.light) {setTheme(Theme.vibrancy);}
+        // if (theme === Theme.vibrancy) {setTheme(Theme.dark);}
     };
 
     const getTheme = () =>
     {
         if (theme === Theme.dark) {return dark;}
         if (theme === Theme.light) {return light;}
-        if (theme === Theme.vibrancy) {return vibrancy;}
+        // if (theme === Theme.vibrancy) {return vibrancy;}
     };
 
     return (

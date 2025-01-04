@@ -4,7 +4,7 @@ import { theme as antdTheme } from 'antd';
 
 
 import { FAIcon } from '@repo/vicon';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import './AppLayout.css';
 import { AppLayoutRoute } from './types';
@@ -37,6 +37,14 @@ export const AppLayout: React.FC<AppLayoutProps> = (props) =>
         setSelectedKeys([path]);
         navigate(path);
     };
+
+    useEffect(() =>
+    {
+        if (defaultRoute)
+        {
+            navigate(defaultRoute);
+        }
+    }, []);
 
     return (
         <>

@@ -15,8 +15,7 @@ export { MacTitleBar } from './components/TitleBar/MacTitleBar';
 export { NotFoundPage } from './pages/404';
 export { SignInPage } from './pages/authorization/signin';
 
-
 export { useMergeState } from './hooks/useMergeState';
 
-export { UserIdentityProvider, useUserIdentity } from './contexts/UserIdentity';
-export { ThemeProvider } from './contexts/Theme/Theme';
+export { UserIdentityProvider, useUserIdentity, UserIdentityContext } from './contexts/UserIdentity';
+export { useTheme, ThemeProvider } from './contexts/Theme/Theme';

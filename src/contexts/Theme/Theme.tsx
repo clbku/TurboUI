@@ -20,7 +20,7 @@ const ThemeContext = createContext<ThemeContextType>({} as ThemeContextType);
 
 export const ThemeProvider: React.FC<PropsWithChildren<{}>> = (props) =>
 {
-    const [theme, setTheme] = useState<Theme>(Theme.light);
+    const [theme, setTheme] = useState<Theme>(Theme.dark);
 
     const toggleTheme = () =>
     {

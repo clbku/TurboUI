@@ -116,7 +116,7 @@ export const AppLayout: React.FC<AppLayoutProps> = (props) =>
                 />
                 <Layout
                     className="app-content"
-                    style={{ backgroundColor: theme?.colorBgContainer }}
+                    style={{ backgroundColor: theme?.colorBgLayout }}
                 >
                     <Outlet />
                 </Layout>

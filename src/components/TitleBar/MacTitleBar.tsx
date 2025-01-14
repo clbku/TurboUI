@@ -1,4 +1,4 @@
-import { Flex, Layout } from 'antd';
+import { Flex, Layout, theme } from 'antd';
 import './MacTitleBar.css';
 
 type MacTitleBarProps = {
@@ -12,13 +12,15 @@ export const MacTitleBar: React.FC<MacTitleBarProps> = (props) =>
 {
     const { onClose, onMaximize, onMinimize } = props;
 
+    const { token } = theme.useToken();
+
     const handleMaximize = () =>
     {
         onMaximize();
     };
 
     return (
-        <Layout>
+        <Layout style={{ backgroundColor: token?.colorBgContainer }}>
             <Flex
                 className="mac-buttons"
                 data-tauri-drag-region

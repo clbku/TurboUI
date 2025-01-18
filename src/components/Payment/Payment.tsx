@@ -7,7 +7,7 @@ import {
 import { SubmitPayment } from './SubmitPayment';
 
 
-import './Payment.css';
+// import './Payment.css';
 import { Badge, Divider, Flex, List, Radio, Tabs, Tag, Typography } from 'antd';
 import { CardInfo } from './methods/CardInfo';
 import { FAIcon } from '@repo/vicon';
@@ -114,9 +114,9 @@ export const Payment: React.FC<{}> = () =>
                     </List>
                 </Flex>
             </Flex>
-            <Flex style={{ width: '50%' }}>
+            {/* <Flex style={{ width: '50%' }}>
                 <Paypal />
-            </Flex>
+            </Flex> */}
         </Flex>
     );
 };

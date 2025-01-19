@@ -15,12 +15,15 @@ type AppLayoutProps = {
   routes: AppLayoutRoute[];
   defaultRoute?: string;
   collapsed?: boolean;
+  collapsible?: boolean;
   subFeaterRoute?: any[]
+  defaultOpenKeys?: string[];
+  defaultSelectedKeys?: string[];
 };
 
 export const AppLayout: React.FC<AppLayoutProps> = (props) =>
 {
-    const { logo, routes, defaultRoute, subFeaterRoute } = props;
+    const { logo, routes, defaultRoute, subFeaterRoute, collapsible = true, defaultOpenKeys = [], defaultSelectedKeys = [] } = props;
 
     const { useToken } = antdTheme;
     const { token: theme } = useToken();
@@ -78,16 +81,22 @@ export const AppLayout: React.FC<AppLayoutProps> = (props) =>
                             mode={'inline'}
                             selectedKeys={selectedKeys}
                             style={{ border: 'none' }}
+                            defaultOpenKeys={defaultOpenKeys}
+                            defaultSelectedKeys={defaultSelectedKeys}
                             items={routes?.map((route) => ({
                                 key: route.path,
                                 label: route.label,
                                 title: route.label,
-                                icon: (
-                                    <FAIcon
-                                        icon={route.icon}
-                                        size="1rem"
-                                    />),
-                                onClick: () => navigateTo(route.path),
+                                icon: route.icon
+                                    ? (
+                                        <FAIcon
+                                            icon={route.icon}
+                                            size="1rem"
+                                        />
+                                    )
+                                    : undefined,
+                                children: route.children?.map(child => ({ ...child, onClick: () => navigateTo(child.path) })),
+                                onClick: route.children ? undefined : () => navigateTo(route.path),
                             }))}
                         />
                     </Flex>
@@ -95,20 +104,22 @@ export const AppLayout: React.FC<AppLayoutProps> = (props) =>
                         <SubFeatures routes={subFeaterRoute} />
                     </Flex>
                     <Divider style={{ margin: '2px' }} />
-                    <Flex className="app-collapse-button">
-                        <Button
-                            variant='text'
-                            color='default'
-                            onClick={() => setCollapsed(!collapsed)}
-                        >
-                            <FAIcon
-                                icon={
-                                    collapsed ? 'chevron-double-right' : 'chevron-double-left'
-                                }
-                                size="1rem"
-                            />
-                        </Button>
-                    </Flex>
+                    {collapsible && (
+                        <Flex className="app-collapse-button">
+                            <Button
+                                variant='text'
+                                color='default'
+                                onClick={() => setCollapsed(!collapsed)}
+                            >
+                                <FAIcon
+                                    icon={
+                                        collapsed ? 'chevron-double-right' : 'chevron-double-left'
+                                    }
+                                    size="1rem"
+                                />
+                            </Button>
+                        </Flex>
+                    )}
                 </Flex>
                 <Divider
                     style={{ margin: 0, height: '100%' }}

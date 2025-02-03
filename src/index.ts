@@ -14,8 +14,9 @@ export { MacTitleBar } from './components/TitleBar/MacTitleBar';
 
 export { NotFoundPage } from './pages/404';
 export { SignInPage } from './pages/authorization/signin';
+export { SignUpPage } from './pages/authorization/signup';
 
 export { useMergeState } from './hooks/useMergeState';
 
-export { UserIdentityProvider, useUserIdentity, UserIdentityContext } from './contexts/UserIdentity';
+export { UserIdentityProvider, useUserIdentity, UserIdentityContext, withAuthRedirect } from './contexts/UserIdentity';
 export { useTheme, ThemeProvider } from './contexts/Theme/Theme';

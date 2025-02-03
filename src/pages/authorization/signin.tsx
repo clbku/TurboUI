@@ -1,6 +1,5 @@
 import React from 'react';
-import { Button, Input, Typography, Form, App, Flex, Layout } from 'antd';
-
+import { Button, Input, Typography, Form, App, Flex, Layout, Card } from 'antd';
 import axios, { AxiosResponse } from 'axios';
 import { Link } from 'react-router-dom';
 
@@ -12,7 +11,7 @@ type SignInPageProps = {
 
 export const SignInPage: React.FC<SignInPageProps> = (props) =>
 {
-    const { authUrl = '/api/auth', homeUrl, onSuccess } = props;
+    const { authUrl = '/api/auth', homeUrl = 'a', onSuccess } = props;
 
     const [username, setUsername] = React.useState('');
     const [password, setPassword] = React.useState('');
@@ -26,7 +25,7 @@ export const SignInPage: React.FC<SignInPageProps> = (props) =>
 
     const handleBasicLogin = () =>
     {
-        axios.post(`${authUrl}/login`, {
+        axios.post(`${authUrl}/sign-in`, {
             username,
             password,
         })
@@ -45,50 +44,58 @@ export const SignInPage: React.FC<SignInPageProps> = (props) =>
                 style={{ minHeight: '100vh' }}
                 vertical
             >
-                <Flex
-                    style={{ width: '300px', marginBottom: '6rem' }}
-                    vertical
-                >
-                    <Typography.Title
-                        level={2}
-                        style={{ textAlign: 'center' }}
+                <Card style={{ marginBottom: '6rem' }}>
+                    <Flex
+                        style={{ width: '300px' }}
+                        vertical
                     >
+                        <Typography.Title
+                            level={2}
+                            style={{ textAlign: 'center' }}
+                        >
                     Sign In
-                    </Typography.Title>
-                    <Form layout="vertical">
-                        <Form.Item label="Username">
-                            <Input
-                                value={username}
-                                onChange={(e) => setUsername(e.target.value)}
-                            />
-                        </Form.Item>
-                        <Form.Item label="Password">
-                            <Input.Password
-                                type='password'
-                                value={password}
-                                onChange={e => setPassword(e.target.value)}
-                            />
-                        </Form.Item>
-                        <Form.Item>
-                            <Button
-                                type="primary"
-                                block
-                                onClick={handleBasicLogin}
-                            >
+                        </Typography.Title>
+                        <Form layout="vertical">
+                            <Form.Item label="Username">
+                                <Input
+                                    value={username}
+                                    onChange={(e) => setUsername(e.target.value)}
+                                />
+                            </Form.Item>
+                            <Form.Item label="Password">
+                                <Input.Password
+                                    type='password'
+                                    value={password}
+                                    onChange={e => setPassword(e.target.value)}
+                                />
+                            </Form.Item>
+                            <Form.Item>
+                                <Button
+                                    type="primary"
+                                    block
+                                    onClick={handleBasicLogin}
+                                >
                             Sign In
-                            </Button>
-                        </Form.Item>
-                    </Form>
-                    <Typography.Text style={{ display: 'block', textAlign: 'center', margin: '16px 0' }}>or</Typography.Text>
-                    <Button
-                        type="default"
-                        block
-                        onClick={handleGoogleSignIn}
-                    >
+                                </Button>
+                            </Form.Item>
+                        </Form>
+                        <Flex
+                            gap={'small'}
+                            align='center'
+                        >
+                            <Typography.Text>{"Don't have an account?"}</Typography.Text> <a href="/sign-up">Sign Up</a>
+                        </Flex>
+                        <Typography.Text style={{ display: 'block', textAlign: 'center', margin: '16px 0' }}>or</Typography.Text>
+                        <Button
+                            type="default"
+                            block
+                            onClick={handleGoogleSignIn}
+                        >
                         Login with Google
-                    </Button>
-                </Flex>
-                {homeUrl && <Link to={homeUrl}>Back to home</Link>}
+                        </Button>
+                    </Flex>
+                </Card>
+                {homeUrl && <a href={homeUrl}>Back to home</a>}
             </Flex>
         </Layout>
     );

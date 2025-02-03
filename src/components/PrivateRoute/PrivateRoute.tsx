@@ -8,7 +8,7 @@ export const PrivateRoute: React.FC<PropsWithChildren<{}>> = (props) =>
 
     if (!userProfile || Object.keys(userProfile).length === 0)
     {
-        return <Navigate to="/login" />;
+        return <Navigate to="/sign-in" />;
     }
 
     return (

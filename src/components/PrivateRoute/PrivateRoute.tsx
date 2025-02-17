@@ -1,14 +1,27 @@
 import { PropsWithChildren } from 'react';
 import { useUserIdentity } from '../../contexts/UserIdentity';
-import { Navigate } from 'react-router-dom';
+import { Navigate, useLocation } from 'react-router-dom';
 
-export const PrivateRoute: React.FC<PropsWithChildren<{}>> = (props) =>
+type PrivateRouteProps = {
+    redirectPath?: string;
+};
+
+export const PrivateRoute: React.FC<PropsWithChildren<PrivateRouteProps>> = (props) =>
 {
+    const { redirectPath = '/sign-in' } = props;
+
     const { userProfile } = useUserIdentity();
+    const location = useLocation();
 
     if (!userProfile || Object.keys(userProfile).length === 0)
     {
-        return <Navigate to="/sign-in" />;
+        return (
+            <Navigate
+                to={redirectPath}
+                state={{ redirectTo: location }}
+                replace
+            />
+        );
     }
 
     return (

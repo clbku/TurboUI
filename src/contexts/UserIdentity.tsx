@@ -8,6 +8,7 @@ type UserIdentityContextProps = {
     isAuthorized: boolean,
     fetchUserProfile: () => Promise<void>
     updateUserProfile: (profile: UserProfile) => Promise<void>
+    logout: () => Promise<void>
 }
 
 export const UserIdentityContext = createContext<UserIdentityContextProps>({} as UserIdentityContextProps);
@@ -40,6 +41,19 @@ export const UserIdentityProvider: React.FC<React.PropsWithChildren<{storage: 'l
         {
             const response = await axios.put('/api/users/profile', profile);
             setUserProfile({ ...response.data.data });
+        }
+        catch (error: any)
+        {
+            console.log(error.message);
+        }
+    };
+
+    const logout = async () =>
+    {
+        try
+        {
+            await axios.post('/api/auth/logout');
+            setUserProfile({} as UserProfile);
         }
         catch (error: any)
         {
@@ -84,6 +98,7 @@ export const UserIdentityProvider: React.FC<React.PropsWithChildren<{storage: 'l
             userProfile,
             fetchUserProfile,
             updateUserProfile,
+            logout,
         }}
         >
             {props.children}
@@ -96,9 +111,9 @@ export const useUserIdentity = (): UserIdentityContextProps =>
     return useContext(UserIdentityContext);
 };
 
-export const withAuthRedirect = (Component: React.FC): React.FC =>
+export function withAuthRedirect<T>(Component: T)
 {
-    return () =>
+    return (props: any) =>
     {
         const { isAuthorized } = useUserIdentity();
 
@@ -108,6 +123,8 @@ export const withAuthRedirect = (Component: React.FC): React.FC =>
             return null;
         }
 
-        return <Component />;
+        const ReactComponent = Component as any;
+
+        return <ReactComponent {...props} />;
     };
-};
+}

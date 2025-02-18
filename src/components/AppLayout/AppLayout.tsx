@@ -2,16 +2,17 @@ import { Outlet, useNavigate } from 'react-router-dom';
 import { Button, Divider, Flex, Layout, Menu } from 'antd';
 import { theme as antdTheme } from 'antd';
 
-
 import { FAIcon } from '@repo/vicon';
 import { useEffect, useState } from 'react';
 
 import './AppLayout.css';
 import { AppLayoutRoute } from './types';
 import { SubFeatures } from './SubFeatures';
+import { useTheme } from '../../contexts/Theme/Theme';
 
 type AppLayoutProps = {
   logo?: any;
+  background?: {[key: string]: { color: string; image: string; size: string }};
   routes: AppLayoutRoute[];
   defaultRoute?: string;
   collapsed?: boolean;
@@ -25,8 +26,8 @@ export const AppLayout: React.FC<AppLayoutProps> = (props) =>
 {
     const { logo, routes, defaultRoute, subFeaterRoute, collapsible = true, defaultOpenKeys = [], defaultSelectedKeys = [] } = props;
 
-    const { useToken } = antdTheme;
-    const { token: theme } = useToken();
+    const { token } = antdTheme.useToken();
+    const { theme } = useTheme();
 
     const [collapsed, setCollapsed] = useState(props.collapsed || false);
     const [selectedKeys, setSelectedKeys] = useState<string[]>(
@@ -56,7 +57,7 @@ export const AppLayout: React.FC<AppLayoutProps> = (props) =>
                 hasSider
             >
                 <Flex
-                    style={{ width: collapsed ? 64 : 256, justifyContent: 'flex-end', backgroundColor: theme?.colorBgContainer }}
+                    style={{ width: collapsed ? 64 : 256, justifyContent: 'flex-end', backgroundColor: token?.colorBgContainer }}
                     className="sidebar"
                     vertical
                 >
@@ -127,7 +128,15 @@ export const AppLayout: React.FC<AppLayoutProps> = (props) =>
                 />
                 <Layout
                     className="app-content"
-                    style={{ backgroundColor: theme?.colorBgLayout }}
+                    style={props.background
+                        ? {
+                            backgroundImage: props.background[theme]?.image,
+                            backgroundSize: props.background[theme]?.size,
+                            backgroundColor: props.background[theme]?.color,
+                            backgroundRepeat: 'no-repeat',
+                            backgroundPosition: 'right',
+                        }
+                        : {}}
                 >
                     <Outlet />
                 </Layout>

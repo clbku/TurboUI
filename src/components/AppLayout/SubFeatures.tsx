@@ -1,6 +1,6 @@
 import { FAIcon } from '@repo/vicon';
 import { useNavigate } from 'react-router-dom';
-import { Menu } from 'antd';
+import { Avatar, Menu, Typography } from 'antd';
 
 import { UserIdentityContext } from '../../contexts/UserIdentity';
 import { useTheme } from '../../contexts/Theme/Theme';
@@ -15,48 +15,85 @@ export const SubFeatures: React.FC<SubFeaturesProps> = (props) =>
     const navigate = useNavigate();
     const { theme, toggleTheme } = useTheme();
 
-    const defaultRoute = [
+    const themeRoute = {
+        key: 'theme',
+        label: 'Theme',
+        icon: (
+            <FAIcon
+                icon={theme === 'dark' ? 'moon' : (theme === 'light' ? 'sun' : 'adjust')}
+                size={'1rem'}
+            />
+        ),
+        onClick: toggleTheme,
+    };
+
+    const userRoute = {
+        key: 'user',
+        label: (
+            <UserIdentityContext.Consumer>
+                {
+                    ({ userProfile }) => (
+                        <Typography.Text style={{ paddingLeft: '0.5rem' }}>
+                            {userProfile?.name || 'Account'}
+                        </Typography.Text>
+                    )
+                }
+            </UserIdentityContext.Consumer>
+        ),
+        icon: (
+            <UserIdentityContext.Consumer>
+                {
+                    ({ userProfile }) => (
+                        userProfile.picture
+                            ? (
+                                <Avatar
+                                    src={userProfile.picture}
+                                    size={'small'}
+                                />
+                            )
+                            : (
+                                <FAIcon
+                                    icon={'user'}
+                                    size={'1rem'}
+                                />
+                            )
+                    )
+                }
+            </UserIdentityContext.Consumer>
+
+        ),
+        onClick: () =>
         {
-            key: 'theme',
-            label: 'Theme',
-            icon: (
-                <FAIcon
-                    icon={theme === 'dark' ? 'moon' : (theme === 'light' ? 'sun' : 'adjust')}
-                    size={'1rem'}
-                />
-            ),
-            onClick: toggleTheme,
+            navigate('/user/profile');
         },
-        {
-            key: 'user',
-            label: (
-                <UserIdentityContext.Consumer>
-                    {
-                        ({ userProfile }) => (
-                            userProfile?.username || 'Account'
-                        )
-                    }
-                </UserIdentityContext.Consumer>
-            ),
-            icon: (
-                <FAIcon
-                    icon='user-circle'
-                    size={'1rem'}
-                />
-            ),
-            onClick: () =>
-            {
-                navigate('/user/profile');
-            },
-        },
-    ];
+    };
 
     return (
         <Menu
             mode="inline"
             style={{ border: 'none' }}
             selectedKeys={['']}
-            items={[...(routes || []), ...defaultRoute]}
+            items={routes?.map(route =>
+            {
+                if (typeof route === 'string')
+                {
+                    if (route === 'builtin:theme')
+                    {
+                        return themeRoute;
+                    }
+                    if (route === 'builtin:user')
+                    {
+                        return userRoute;
+                    }
+                }
+
+                return {
+                    key: route.key,
+                    label: route.label,
+                    icon: route.icon,
+                    onClick: route.onClick,
+                };
+            })}
         />
     );
 };

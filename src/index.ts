@@ -20,3 +20,4 @@ export { useMergeState } from './hooks/useMergeState';
 
 export { UserIdentityProvider, useUserIdentity, UserIdentityContext, withAuthRedirect } from './contexts/UserIdentity';
 export { useTheme, ThemeProvider } from './contexts/Theme/Theme';
+export { Profile } from './components/Profile/Profile';

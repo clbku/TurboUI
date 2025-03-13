@@ -24,8 +24,13 @@ export const UserIdentityProvider: React.FC<React.PropsWithChildren<{storage: 'l
     {
         try
         {
-            const response = await axios.get('/api/users/profile');
-            setUserProfile({ ...response.data.data });
+            const accessToken = localStorage.getItem('access_token');
+            const response = await axios.get('/api/oauth/userinfo', {
+                headers: {
+                    Authorization: `Bearer ${accessToken}`,
+                },
+            });
+            setUserProfile({ ...response.data });
         }
         catch (error: any)
         {
@@ -65,7 +70,7 @@ export const UserIdentityProvider: React.FC<React.PropsWithChildren<{storage: 'l
     {
         if (storage === 'local')
         {
-            const accessToken = localStorage.getItem('accessToken');
+            const accessToken = localStorage.getItem('access_token');
 
             if (accessToken)
             {

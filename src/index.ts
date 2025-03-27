@@ -2,6 +2,7 @@ export * from 'antd';
 export { default as AwesomeDebouncePromise } from 'awesome-debounce-promise';
 
 
+export { AccountSetting } from './components/AccountSetting';
 export { AppLayout } from './components/AppLayout/AppLayout';
 export { AdvanceColorPicker } from './components/AdvanceColorPicker/AdvanceColorPicker';
 export { FloatInput } from './components/FloatInput/FloatInput';

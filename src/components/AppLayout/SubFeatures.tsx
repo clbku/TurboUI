@@ -1,8 +1,7 @@
 import { FAIcon } from '@repo/vicon';
-import { useNavigate } from 'react-router-dom';
 import { Avatar, Menu, Typography } from 'antd';
 
-import { UserIdentityContext } from '../../contexts/UserIdentity';
+import { UserIdentityContext, useUserIdentity } from '../../contexts/UserIdentity';
 import { useTheme } from '../../contexts/Theme/Theme';
 
 type SubFeaturesProps = {
@@ -12,8 +11,8 @@ type SubFeaturesProps = {
 export const SubFeatures: React.FC<SubFeaturesProps> = (props) =>
 {
     const { routes } = props;
-    const navigate = useNavigate();
     const { theme, toggleTheme } = useTheme();
+    const { showProfilePopup } = useUserIdentity();
 
     const themeRoute = {
         key: 'theme',
@@ -64,7 +63,7 @@ export const SubFeatures: React.FC<SubFeaturesProps> = (props) =>
         ),
         onClick: () =>
         {
-            navigate('/user/profile');
+            showProfilePopup();
         },
     };
 

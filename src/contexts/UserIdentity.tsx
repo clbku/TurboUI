@@ -2,12 +2,14 @@ import { createContext, useContext, useEffect, useState } from 'react';
 import axios from 'axios';
 import { UserProfile } from '../types/user';
 import { Spin } from 'antd';
+import { AccountSetting } from '../components/AccountSetting';
 
 type UserIdentityContextProps = {
     userProfile: UserProfile,
     isAuthorized: boolean,
     fetchUserProfile: () => Promise<void>
     updateUserProfile: (profile: UserProfile) => Promise<void>
+    showProfilePopup: () => void
     logout: () => Promise<void>
 }
 
@@ -19,18 +21,21 @@ export const UserIdentityProvider: React.FC<React.PropsWithChildren<{storage: 'l
 
     const [loading, setLoading] = useState(true);
     const [userProfile, setUserProfile] = useState<UserProfile>({} as UserProfile);
+    const [showModal, setShowModal] = useState(false);
 
     const fetchUserProfile = async () =>
     {
         try
         {
-            const accessToken = localStorage.getItem('access_token');
-            const response = await axios.get('/api/oauth/userinfo', {
-                headers: {
-                    Authorization: `Bearer ${accessToken}`,
-                },
-            });
-            setUserProfile({ ...response.data });
+            if (Object.keys(userProfile).length === 0) {
+                const accessToken = localStorage.getItem('access_token');
+                const response = await axios.get('/api/oauth/userinfo', {
+                    headers: {
+                        Authorization: `Bearer ${accessToken}`,
+                    },
+                });
+                setUserProfile({ ...response.data });
+            }
         }
         catch (error: any)
         {
@@ -64,6 +69,11 @@ export const UserIdentityProvider: React.FC<React.PropsWithChildren<{storage: 'l
         {
             console.log(error.message);
         }
+    };
+
+    const showProfilePopup = () =>
+    {
+        setShowModal(true);
     };
 
     useEffect(() =>
@@ -103,10 +113,15 @@ export const UserIdentityProvider: React.FC<React.PropsWithChildren<{storage: 'l
             userProfile,
             fetchUserProfile,
             updateUserProfile,
+            showProfilePopup,
             logout,
         }}
         >
             {props.children}
+            <AccountSetting
+                open={showModal}
+                onClose={() => setShowModal(false)}
+            />
         </UserIdentityContext.Provider>
     );
 };

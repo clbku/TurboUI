@@ -38,7 +38,7 @@ export const Account = () =>
                 <Typography.Text strong>{`${userProfile.given_name} ${userProfile.family_name}`}</Typography.Text>
             </Flex>
 
-            <Typography.Title level={3}>Account Details</Typography.Title>
+            <Typography.Title level={5}>Account Details</Typography.Title>
 
             <Form
                 form={form}
@@ -92,7 +92,7 @@ export const Account = () =>
             </Form>
 
 
-            <Typography.Title level={3}>Auth providers</Typography.Title>
+            <Typography.Title level={5}>Auth providers</Typography.Title>
 
             <Flex
                 gap={'4rem'}

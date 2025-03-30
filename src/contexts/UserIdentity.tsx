@@ -15,7 +15,7 @@ type UserIdentityContextProps = {
 
 export const UserIdentityContext = createContext<UserIdentityContextProps>({} as UserIdentityContextProps);
 
-export const UserIdentityProvider: React.FC<React.PropsWithChildren<{storage: 'local' | 'cookie'}>> = (props) =>
+export const UserIdentityProvider: React.FC<React.PropsWithChildren<{storage: 'local' | 'cookie' | 'tauri-store'}>> = (props) =>
 {
     const { storage } = props;
 
@@ -27,14 +27,10 @@ export const UserIdentityProvider: React.FC<React.PropsWithChildren<{storage: 'l
     {
         try
         {
-            if (Object.keys(userProfile).length === 0) {
-                const accessToken = localStorage.getItem('access_token');
-                const response = await axios.get('/api/oauth/userinfo', {
-                    headers: {
-                        Authorization: `Bearer ${accessToken}`,
-                    },
-                });
-                setUserProfile({ ...response.data });
+            if (Object.keys(userProfile).length === 0)
+            {
+                const response = await axios.get('/api/users/profile');
+                setUserProfile({ ...response.data.data });
             }
         }
         catch (error: any)

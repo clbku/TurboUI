@@ -1,8 +1,8 @@
 import { FAIcon } from '@repo/vicon';
-import { Avatar, Menu, Typography } from 'antd';
+import { Avatar, Menu } from 'antd';
 
-import { UserIdentityContext, useUserIdentity } from '../../contexts/UserIdentity';
 import { useTheme } from '../../contexts/Theme/Theme';
+import { useUserIdentity } from '../../contexts/UserIdentity';
 
 type SubFeaturesProps = {
     routes?: any[]
@@ -12,7 +12,7 @@ export const SubFeatures: React.FC<SubFeaturesProps> = (props) =>
 {
     const { routes } = props;
     const { theme, toggleTheme } = useTheme();
-    const { showProfilePopup } = useUserIdentity();
+    const { showProfilePopup, userProfile } = useUserIdentity();
 
     const themeRoute = {
         key: 'theme',
@@ -28,37 +28,22 @@ export const SubFeatures: React.FC<SubFeaturesProps> = (props) =>
 
     const userRoute = {
         key: 'user',
-        label: (
-            <UserIdentityContext.Consumer>
-                {
-                    ({ userProfile }) => (
-                        <Typography.Text style={{ paddingLeft: '0.5rem' }}>
-                            {userProfile?.name || 'Account'}
-                        </Typography.Text>
-                    )
-                }
-            </UserIdentityContext.Consumer>
-        ),
+        label: userProfile?.name || 'Account',
         icon: (
-            <UserIdentityContext.Consumer>
-                {
-                    ({ userProfile }) => (
-                        userProfile.picture
-                            ? (
-                                <Avatar
-                                    src={userProfile.picture}
-                                    size={'small'}
-                                />
-                            )
-                            : (
-                                <FAIcon
-                                    icon={'user'}
-                                    size={'1rem'}
-                                />
-                            )
-                    )
-                }
-            </UserIdentityContext.Consumer>
+            userProfile?.picture
+                ? (
+
+                    <Avatar
+                        size={'small'}
+                        src={userProfile?.picture}
+                    />
+                )
+                : (
+                    <FAIcon
+                        icon={'user'}
+                        size={'1rem'}
+                    />
+                )
 
         ),
         onClick: () =>
@@ -70,7 +55,7 @@ export const SubFeatures: React.FC<SubFeaturesProps> = (props) =>
     return (
         <Menu
             mode="inline"
-            style={{ border: 'none' }}
+            style={{ border: 'none', flex: 'auto' }}
             selectedKeys={['']}
             items={routes?.map(route =>
             {
